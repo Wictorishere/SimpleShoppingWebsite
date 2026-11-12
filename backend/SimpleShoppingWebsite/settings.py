@@ -21,6 +21,11 @@ INSTALLED_APPS = [
     'accounts',
     'catalog',
     'orders',
+
+    #API
+    'rest_framework',
+
+    'django_filters',
 ]
 
 MIDDLEWARE = [
