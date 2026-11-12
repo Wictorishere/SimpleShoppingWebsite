@@ -1,0 +1,9 @@
+$body = @{
+    refresh = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5NTEyOTQ2MSwiaWF0IjoxNzk0NTI0NjYxLCJqdGkiOiJkNTc5NzJjYjllYzQ0ZWZlYWNjZGRmN2I0NDkwNGI1NiIsInVzZXJfaWQiOiIxIn0.1FMl1xSR_pJaS3KpxHYzIODHupjS8czAGV0TP8q5S2k"
+} | ConvertTo-Json
+
+Invoke-RestMethod `
+    -Uri "http://127.0.0.1:8000/api/accounts/logout/" `
+    -Method Post `
+    -ContentType "application/json" `
+    -Body $body
