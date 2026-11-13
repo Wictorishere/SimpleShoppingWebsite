@@ -66,26 +66,63 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        max_length=150,
+    )
+    last_name = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        max_length=150,
+    )
+    email = serializers.EmailField(
+        required=False,
+        allow_blank=True,
+    )
+
     class Meta:
         model = User
-        fields = "__all__"
-        read_only_fields = ["id", "username"]
+
+        fields = [
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "phone_number",
+        ]
+
+        read_only_fields = [
+            "id",
+            "username",
+        ]
 
         extra_kwargs = {
-            "first_name": {"allow_blank": False},
-            "last_name": {"allow_blank": False},
-            "email": {"allow_blank": False},
             "phone_number": {
+                "required": False,
                 "allow_blank": False,
-                "allow_null": False,
+                "allow_null": True,
             },
         }
+
 
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = "__all__"
+        fields = [
+            "id",
+            "title",
+            "recipient_name",
+            "recipient_phone",
+            "province",
+            "city",
+            "street_address",
+            "postal_code",
+            "created_at",
+            "updated_at",
+        ]
         read_only_fields = [
             "id",
             "created_at",

@@ -44,16 +44,12 @@ class AddressDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AddressSerializer
     permission_classes = [IsAuthenticated]
 
-    http_method_names = [
-        "get",
-        "patch",
-        "delete",
-        "head",
-        "options",
-    ]
+    http_method_names = ["get", "patch", "delete", "head", "options"]
 
     def get_queryset(self):
         return Address.objects.filter(user=self.request.user)
+
+
 
 class LogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
