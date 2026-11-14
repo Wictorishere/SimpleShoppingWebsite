@@ -6,6 +6,8 @@ from .filters import ProductFilter
 from .models import Category, Product
 from .pagination import CatalogPagination
 from .serializers import CategorySerializer, ProductSerializer
+from .pricing import with_daily_sale_price
+
 
 
 class CategoryListAPIView(generics.ListAPIView):
@@ -21,12 +23,13 @@ class ProductListAPIView(generics.ListAPIView):
     permission_classes = [AllowAny]
     pagination_class = CatalogPagination
 
-    queryset = (
+    queryset = with_daily_sale_price(
         Product.objects
         .filter(is_active=True)
         .select_related("category")
         .prefetch_related("images")
     )
+
 
     filter_backends = [
         DjangoFilterBackend,

@@ -19,6 +19,14 @@ class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
 
+    daily_sale_price = serializers.DecimalField(
+        max_digits=10,
+        decimal_places=0,
+        read_only=True,
+        allow_null=True,
+    )
+
+
     class Meta:
         model = Product
         fields = "__all__"

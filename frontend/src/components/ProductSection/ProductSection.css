@@ -1,0 +1,212 @@
+.product-section,
+.product-section * {
+  box-sizing: border-box;
+}
+
+/* =========================
+   Section
+========================= */
+
+.product-section {
+  width: calc(100% - 48px);
+  max-width: 1680px;
+  min-width: 0;
+
+  margin: 36px auto;
+
+  background: transparent;
+}
+
+/* =========================
+   Header
+========================= */
+
+.product-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-bottom: 12px;
+}
+
+.product-section__header h2 {
+  min-width: 0;
+  margin: 0;
+
+  color: var(--text-primary, #292929);
+
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.8;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   Navigation buttons
+========================= */
+
+.product-section__controls {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.product-section__controls button {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+
+  color: var(--text-primary, #333333);
+  background: var(--surface, #ffffff);
+
+  border: 1px solid var(--border-color, #eeeeee);
+  border-radius: 12px;
+
+  font: inherit;
+  font-size: 28px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.product-section__controls button:hover {
+  color: var(--accent, #df454b);
+  background: var(--accent-soft, #fff1f2);
+}
+
+/* =========================
+   Horizontal product row
+========================= */
+
+.product-section__track {
+  display: grid;
+  grid-auto-flow: column;
+
+  /* کارت‌های عریض‌تر */
+  grid-auto-columns: clamp(280px, 21vw, 340px);
+
+  align-items: stretch;
+  gap: 22px;
+
+  min-width: 0;
+  margin: 0;
+
+  /* فضای کافی برای بزرگ‌شدن کارت هنگام هاور */
+  padding: 16px 10px 24px;
+
+  overflow-x: auto;
+
+  list-style: none;
+
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 10px;
+  overscroll-behavior-x: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color: #bbbbbb transparent;
+}
+
+.product-section__item {
+  position: relative;
+
+  min-width: 0;
+
+  scroll-snap-align: start;
+}
+
+/* کارت هاورشده بالاتر از کارت‌های کناری باشد */
+.product-section__item:hover,
+.product-section__item:focus-within {
+  z-index: 2;
+}
+
+/* =========================
+   Loading / empty / error
+========================= */
+
+.product-section__status {
+  padding: 32px 16px;
+
+  color: var(--text-secondary, #777777);
+  text-align: center;
+}
+
+.product-section__status button {
+  min-height: 44px;
+  padding: 8px 18px;
+
+  color: var(--text-primary, #292929);
+  background: var(--surface, #ffffff);
+
+  border: 1px solid var(--border-color, #dddddd);
+  border-radius: 10px;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+/* =========================
+   Keyboard accessibility
+========================= */
+
+.product-section__controls button:focus-visible,
+.product-section__track:focus-visible,
+.product-section__status button:focus-visible {
+  outline: 3px solid var(--accent, #df454b);
+  outline-offset: 3px;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 767px) {
+  .product-section {
+    width: calc(100% - 24px);
+    margin-block: 28px;
+  }
+
+  .product-section__header {
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .product-section__header h2 {
+    font-size: 18px;
+  }
+
+  .product-section__track {
+    grid-auto-columns: min(270px, 85vw);
+    gap: 16px;
+
+    padding: 12px 8px 20px;
+    scroll-padding-inline: 8px;
+  }
+}
+
+/* =========================
+   Dark theme
+========================= */
+
+[data-theme="dark"] .product-section__track {
+  scrollbar-color: #555560 transparent;
+}
+
+/* =========================
+   Reduced motion
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .product-section__controls button {
+    transition: none;
+  }
+}

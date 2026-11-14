@@ -1,0 +1,184 @@
+.store-benefits,
+.store-benefits * {
+  box-sizing: border-box;
+}
+
+.store-benefits {
+  --benefits-card: #ffffff;
+  --benefits-title: #df454b;
+  --benefits-description: #7b878b;
+  --benefits-icon: #292929;
+  --benefits-border: #ededed;
+
+  width: 100%;
+  min-width: 0;
+  margin-block: 32px;
+  padding: 16px;
+
+  /* نمایش پس‌زمینهٔ خود سایت */
+  background: transparent;
+}
+
+/* چهار کارت کنار هم */
+.store-benefits__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+
+  width: 100%;
+  max-width: 1680px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 5px 0 10px;
+
+  list-style: none;
+}
+
+/* کارت */
+.store-benefits__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  min-width: 0;
+  min-height: 98px;
+  padding: 16px;
+
+  background: var(--benefits-card);
+  border: 1px solid var(--benefits-border);
+  border-radius: 18px;
+
+  box-shadow:
+    0 3px 8px rgb(0 0 0 / 6%),
+    0 1px 3px rgb(0 0 0 / 3%);
+}
+
+/* آیکون */
+.store-benefits__icon {
+  display: grid;
+  flex: 0 0 50px;
+  place-items: center;
+
+  width: 50px;
+  height: 54px;
+
+  color: var(--benefits-icon);
+}
+
+.store-benefits__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* بخش متن؛ اجازهٔ کوچک‌شدن در فضای کارت */
+.store-benefits__content {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
+}
+
+/* عنوان */
+.store-benefits__content h3 {
+  margin: 0;
+
+  color: var(--benefits-title);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.8;
+
+  /* در فضای کم، متن به خط بعد می‌رود */
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* توضیحات */
+.store-benefits__content p {
+  margin: 4px 0 0;
+
+  color: var(--benefits-description);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.8;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* دسترسی با کیبورد */
+.store-benefits__list:focus-visible {
+  outline: 2px solid var(--benefits-title);
+  outline-offset: 5px;
+  border-radius: 12px;
+}
+
+/* تبلت و نمایشگرهای کوچک‌تر: اسکرول افقی */
+@media (max-width: 1350px) {
+  .store-benefits__list {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+
+    padding: 5px 4px 12px;
+
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4px;
+    overscroll-behavior-x: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: #c8c8c8 transparent;
+  }
+
+  .store-benefits__card {
+    flex: 0 0 310px;
+    scroll-snap-align: start;
+  }
+}
+
+/* موبایل */
+@media (max-width: 600px) {
+  .store-benefits {
+    margin-block: 24px;
+    padding: 12px 10px;
+  }
+
+  .store-benefits__list {
+    gap: 12px;
+  }
+
+  .store-benefits__card {
+    flex-basis: 290px;
+    min-height: 92px;
+    padding: 14px;
+    gap: 12px;
+    border-radius: 16px;
+  }
+
+  .store-benefits__icon {
+    flex-basis: 46px;
+    width: 46px;
+    height: 50px;
+  }
+
+  .store-benefits__content h3 {
+    font-size: 15px;
+  }
+
+  .store-benefits__content p {
+    font-size: 11px;
+  }
+}
+
+/* حالت شب؛ پس‌زمینهٔ نوار همچنان شفاف است */
+[data-theme="dark"] .store-benefits {
+  --benefits-card: #232329;
+  --benefits-title: #ff7a80;
+  --benefits-description: #afb0bb;
+  --benefits-icon: #eeeef2;
+  --benefits-border: #33333c;
+}
+
+[data-theme="dark"] .store-benefits__list {
+  scrollbar-color: #555560 transparent;
+}
