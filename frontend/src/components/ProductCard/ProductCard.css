@@ -337,3 +337,132 @@ button.product-card__target {
     transform: none;
   }
 }
+
+/* =========================
+   Compact card
+   مخصوص صفحه لیست محصولات
+========================= */
+
+.product-card.product-card--compact {
+  height: 400px;
+  border-radius: 16px;
+}
+
+.product-card--compact .product-card__target {
+  grid-template-rows: minmax(0, 1fr) 144px;
+  gap: 14px;
+
+  padding: 14px;
+}
+
+.product-card--compact .product-card__media {
+  border-radius: 10px;
+}
+
+.product-card--compact .product-card__name {
+  min-height: 52px;
+  max-height: 52px;
+  margin-bottom: 8px;
+
+  font-size: 13px;
+  line-height: 26px;
+}
+
+.product-card--compact .product-card__discount-row {
+  gap: 8px;
+
+  min-height: 28px;
+  margin-bottom: 8px;
+}
+
+.product-card--compact .product-card__discount {
+  min-width: 36px;
+  padding: 2px 6px;
+
+  border-radius: 7px;
+
+  font-size: 12px;
+}
+
+.product-card--compact .product-card__old-price {
+  font-size: 11px;
+}
+
+.product-card--compact .product-card__price-row {
+  gap: 5px;
+  min-height: 28px;
+}
+
+.product-card--compact .product-card__price {
+  font-size: 18px;
+}
+
+.product-card--compact .product-card__currency {
+  font-size: 11px;
+}
+
+.product-card--compact .product-card__unavailable {
+  font-size: 13px;
+}
+
+/* جلوگیری از برخورد کارت‌های شبکه هنگام هاور */
+@media (hover: hover) and (pointer: fine) {
+  .product-card.product-card--compact:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgb(0 0 0 / 9%);
+  }
+}
+
+/* =========================
+   Compact card — Mobile
+========================= */
+
+@media (max-width: 600px) {
+  .product-card.product-card--compact {
+    height: 350px;
+    border-radius: 12px;
+  }
+
+  .product-card--compact .product-card__target {
+    grid-template-rows: minmax(0, 1fr) 144px;
+    gap: 10px;
+
+    padding: 10px;
+  }
+
+  .product-card--compact .product-card__name {
+    min-height: 48px;
+    max-height: 48px;
+
+    font-size: 12px;
+    line-height: 24px;
+  }
+
+  .product-card--compact .product-card__discount-row {
+    gap: 5px;
+  }
+
+  .product-card--compact .product-card__discount {
+    min-width: 32px;
+    font-size: 11px;
+  }
+
+  .product-card--compact .product-card__old-price {
+    font-size: 10px;
+  }
+
+  .product-card--compact .product-card__price {
+    font-size: 16px;
+  }
+
+  .product-card--compact .product-card__currency {
+    font-size: 10px;
+  }
+}
+
+/* این بخش باید بعد از قوانین هاور بالا باشد */
+@media (prefers-reduced-motion: reduce) {
+  .product-card.product-card--compact:hover {
+    transform: none;
+  }
+}

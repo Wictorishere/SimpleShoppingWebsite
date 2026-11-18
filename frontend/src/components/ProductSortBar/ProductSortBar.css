@@ -1,0 +1,233 @@
+.product-sort-bar,
+.product-sort-bar * {
+  box-sizing: border-box;
+}
+
+/* =========================
+   Main layout
+========================= */
+
+.product-sort-bar {
+  --sort-text: var(--text-primary, #292929);
+  --sort-muted: var(--text-secondary, #777777);
+  --sort-border: var(--border-color, #eeeeee);
+  --sort-surface: var(--surface, #ffffff);
+  --sort-accent: var(--accent, #e94149);
+  --sort-active-bg: #fff2f3;
+  --sort-hover-bg: #f7f7f8;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 72px;
+  padding: 14px 18px;
+
+  color: var(--sort-text);
+  background: var(--sort-surface);
+
+  border: 1px solid var(--sort-border);
+  border-radius: 14px;
+}
+
+[data-theme="dark"] .product-sort-bar {
+  --sort-active-bg: #352126;
+  --sort-hover-bg: #25252b;
+}
+
+/* =========================
+   Label
+========================= */
+
+.product-sort-bar__sorting {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.product-sort-bar__label {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 8px;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.product-sort-bar__label svg {
+  flex-shrink: 0;
+
+  width: 20px;
+  height: 20px;
+}
+
+/* =========================
+   Desktop options
+========================= */
+
+.product-sort-bar__options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.product-sort-bar__option {
+  min-height: 40px;
+  padding: 8px 10px;
+
+  color: var(--sort-muted);
+  background: transparent;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.8;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.product-sort-bar__option--active {
+  color: var(--sort-accent);
+  background: var(--sort-active-bg);
+
+  font-weight: 700;
+}
+
+/* =========================
+   Result count
+========================= */
+
+.product-sort-bar__count {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
+
+  margin: 0;
+  margin-inline-start: auto;
+
+  color: var(--sort-muted);
+
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.product-sort-bar__count strong {
+  color: var(--sort-text);
+
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================
+   Mobile select
+========================= */
+
+.product-sort-bar__select {
+  display: none;
+
+  min-width: 0;
+  min-height: 42px;
+  padding: 8px 10px;
+
+  color: var(--sort-text);
+  background: var(--sort-surface);
+
+  border: 1px solid var(--sort-border);
+  border-radius: 9px;
+
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.8;
+
+  cursor: pointer;
+}
+
+/* =========================
+   Interaction
+========================= */
+
+.product-sort-bar__option:focus-visible,
+.product-sort-bar__select:focus-visible {
+  outline: 3px solid var(--sort-accent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .product-sort-bar__option:not(
+      .product-sort-bar__option--active
+    ):hover {
+    color: var(--sort-text);
+    background: var(--sort-hover-bg);
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 767px) {
+  .product-sort-bar {
+    gap: 12px;
+
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .product-sort-bar__sorting {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 10px;
+
+    width: 100%;
+  }
+
+  .product-sort-bar__label {
+    font-size: 12px;
+  }
+
+  .product-sort-bar__options {
+    display: none;
+  }
+
+  .product-sort-bar__select {
+    display: block;
+    flex: 1;
+
+    max-width: 200px;
+  }
+
+  .product-sort-bar__count {
+    width: 100%;
+    margin-inline-start: 0;
+  }
+}
+
+/* =========================
+   Reduced motion
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .product-sort-bar__option {
+    transition: none;
+  }
+}

@@ -9,10 +9,12 @@ class Order(models.Model):
     class Status(models.TextChoices):
         PENDING = "pending", "در انتظار پرداخت"
         PAID = "paid", "پرداخت‌شده"
+        PAYMENT_FAILED = "payment_failed", "پرداخت ناموفق"
         PROCESSING = "processing", "در حال آماده‌سازی"
         SHIPPED = "shipped", "ارسال‌شده"
         DELIVERED = "delivered", "تحویل‌شده"
         CANCELLED = "cancelled", "لغوشده"
+
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -45,9 +45,11 @@ class ProductListAPIView(generics.ListAPIView):
     ]
 
     ordering_fields = [
+        "name",
         "price",
         "created_at",
     ]
+
 
     ordering = ["-created_at", "-id"]
 

@@ -44,10 +44,13 @@ export default function Footer({ store }) {
   }).format(new Date());
 
   return (
-    <footer className="site-footer" dir="rtl">
+    <footer
+      id="contact"
+      className="site-footer"
+      dir="rtl"
+    >
       <div className="site-footer__container">
         <div className="site-footer__main">
-          {/* معرفی فروشگاه */}
           <section
             className="site-footer__about"
             aria-labelledby="footer-store-name"

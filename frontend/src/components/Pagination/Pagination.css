@@ -1,0 +1,184 @@
+.catalog-pagination,
+.catalog-pagination * {
+  box-sizing: border-box;
+}
+
+.catalog-pagination {
+  --pagination-text: var(--text-primary, #292929);
+  --pagination-muted: var(--text-secondary, #777777);
+  --pagination-border: var(--border-color, #eeeeee);
+  --pagination-surface: var(--surface, #ffffff);
+  --pagination-accent: var(--accent, #e94149);
+  --pagination-hover: #f7f7f8;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+
+  width: 100%;
+  min-width: 0;
+  padding-block: 28px 12px;
+
+  color: var(--pagination-text);
+}
+
+[data-theme="dark"] .catalog-pagination {
+  --pagination-hover: #25252b;
+}
+
+.catalog-pagination__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  max-width: 100%;
+}
+
+.catalog-pagination__pages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.catalog-pagination__page,
+.catalog-pagination__direction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 42px;
+  min-height: 44px;
+  padding: 8px 12px;
+
+  color: var(--pagination-text);
+  background: var(--pagination-surface);
+
+  border: 1px solid var(--pagination-border);
+  border-radius: 10px;
+
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.8;
+  font-variant-numeric: tabular-nums;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.catalog-pagination__page--active {
+  color: #ffffff;
+  background: var(--pagination-accent);
+  border-color: var(--pagination-accent);
+
+  font-weight: 700;
+}
+
+.catalog-pagination__direction > span[aria-hidden="true"] {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.catalog-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.catalog-pagination__ellipsis {
+  display: grid;
+  place-items: center;
+
+  min-width: 24px;
+  min-height: 44px;
+
+  color: var(--pagination-muted);
+}
+
+.catalog-pagination__description {
+  margin: 0;
+
+  color: var(--pagination-muted);
+
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.catalog-pagination__sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+
+  border: 0;
+}
+
+.catalog-pagination button:focus-visible {
+  outline: 3px solid var(--pagination-accent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .catalog-pagination__page:not(
+      .catalog-pagination__page--active
+    ):not(:disabled):hover,
+  .catalog-pagination__direction:not(:disabled):hover {
+    color: var(--pagination-accent);
+    background: var(--pagination-hover);
+    border-color: var(--pagination-accent);
+  }
+}
+
+/* در موبایل شماره‌ها ردیف اول و قبلی/بعدی ردیف دوم هستند */
+@media (max-width: 600px) {
+  .catalog-pagination__controls {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .catalog-pagination__pages {
+    order: -1;
+    width: 100%;
+    gap: 4px;
+  }
+
+  .catalog-pagination__page {
+    min-width: 34px;
+    padding-inline: 8px;
+
+    font-size: 12px;
+  }
+
+  .catalog-pagination__direction {
+    min-width: 96px;
+  }
+
+  .catalog-pagination__ellipsis {
+    min-width: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-pagination button {
+    transition: none;
+  }
+}

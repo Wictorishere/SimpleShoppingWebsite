@@ -1,15 +1,20 @@
 import { useState } from "react";
 import "./ProductCard.css";
+import { mediaUrl } from "../../utils/mediaUrl";
 
 const formatter = new Intl.NumberFormat("fa-IR", {
   maximumFractionDigits: 0,
 });
 
-export default function ProductCard({ product, onSelect }) {
+export default function ProductCard({
+  product,
+  onSelect,
+  compact = false,
+}) {
   const [failedImages, setFailedImages] = useState({});
 
   const imageUrls = (product.images ?? [])
-    .map((item) => item.image)
+    .map((item) => mediaUrl(item.image))
     .filter(Boolean);
 
   const firstImage = imageUrls[0];
@@ -28,8 +33,12 @@ export default function ProductCard({ product, onSelect }) {
 
   const originalPrice = Number(product.price);
   const salePrice = Number(product.daily_sale_price);
+  const stock = Number(product.stock);
 
-  const available = Number(product.stock) > 0;
+  const available =
+    product.is_available === true &&
+    Number.isFinite(stock) &&
+    stock > 0;
 
   const validPrice =
     product.price !== null &&
@@ -101,7 +110,10 @@ export default function ProductCard({ product, onSelect }) {
       </div>
 
       <div className="product-card__body">
-        <h3 className="product-card__name" title={product.name}>
+        <h3
+          className="product-card__name"
+          title={product.name}
+        >
           {product.name}
         </h3>
 
@@ -150,7 +162,15 @@ export default function ProductCard({ product, onSelect }) {
   );
 
   return (
-    <article className="product-card" dir="rtl">
+    <article
+      className={[
+        "product-card",
+        compact ? "product-card--compact" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      dir="rtl"
+    >
       {onSelect ? (
         <button
           type="button"

@@ -8,14 +8,24 @@
 ========================= */
 
 .product-section {
-  width: calc(100% - 48px);
-  max-width: 1680px;
+  position: relative;
+
+  left: auto;
+  right: 50%;
+
+  width: 90vw;
+  max-width: none;
   min-width: 0;
 
-  margin: 36px auto;
+  margin: 36px 0;
+  margin-right: -45vw;
+  padding-inline: 0;
 
   background: transparent;
 }
+
+
+
 
 /* =========================
    Header

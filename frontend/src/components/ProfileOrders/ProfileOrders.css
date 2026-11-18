@@ -1,0 +1,136 @@
+.profile-orders {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid #d9dfe7;
+  border-radius: 18px;
+  background: var(--surface, #fff);
+  color: var(--text, #172033);
+}
+
+.profile-orders__header,
+.profile-orders__row,
+.profile-orders__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.profile-orders h2,
+.profile-orders h3 {
+  margin: 0;
+}
+
+.profile-orders__header p {
+  color: #596579;
+}
+
+.profile-orders__notice {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #fff7df;
+  color: #745100;
+  line-height: 1.9;
+}
+
+.profile-orders__list {
+  display: grid;
+  gap: 16px;
+}
+
+.profile-orders__card {
+  padding: 20px;
+  border: 1px solid #d9dfe7;
+  border-radius: 14px;
+}
+
+.profile-orders__status {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: #edf0f5;
+  color: #364152;
+}
+
+.profile-orders__status[data-status="paid"] {
+  color: #146338;
+  background: #dcfce7;
+}
+
+.profile-orders__status[data-status="payment_failed"],
+.profile-orders__status[data-status="cancelled"] {
+  color: #a51d29;
+  background: #fee2e2;
+}
+
+.profile-orders__status[data-status="pending"] {
+  color: #805500;
+  background: #fef3c7;
+}
+
+.profile-orders button {
+  padding: 9px 16px;
+  border: 1px solid #c9d2df;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.profile-orders button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.profile-orders button:focus-visible {
+  outline: 3px solid #818cf8;
+  outline-offset: 3px;
+}
+
+.profile-orders__details {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #d9dfe7;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+.profile-orders__items {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+.profile-orders__items li {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid #d9dfe7;
+  border-radius: 10px;
+}
+
+.profile-orders__note {
+  white-space: pre-wrap;
+}
+
+.profile-orders__error {
+  color: #b42318;
+}
+
+.profile-orders__pagination {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .profile-orders {
+    padding: 16px;
+  }
+
+  .profile-orders__card {
+    padding: 14px;
+  }
+}

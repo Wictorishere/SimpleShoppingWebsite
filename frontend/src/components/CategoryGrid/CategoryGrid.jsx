@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import "./CategoryGrid.css";
 
 const categoryCards = [
@@ -63,7 +65,13 @@ function CategoryIcon({ type }) {
       {type === "bracelet" && (
         <>
           <ellipse cx="40" cy="42" rx="25" ry="23" />
-          <ellipse cx="40" cy="42" rx="18" ry="16" opacity=".4" />
+          <ellipse
+            cx="40"
+            cy="42"
+            rx="18"
+            ry="16"
+            opacity=".4"
+          />
           <path d="M33 19l7-9 7 9-7 9-7-9Z" />
           <path d="M18 31l6 4M15 43h7M19 55l6-4" />
           <path d="M62 31l-6 4M65 43h-7M61 55l-6-4" />
@@ -73,7 +81,10 @@ function CategoryIcon({ type }) {
       {type === "necklace" && (
         <>
           <path d="M18 13c0 25 6 39 22 43 16-4 22-18 22-43" />
-          <path d="M24 15c0 20 4 31 16 35 12-4 16-15 16-35" opacity=".4" />
+          <path
+            d="M24 15c0 20 4 31 16 35 12-4 16-15 16-35"
+            opacity=".4"
+          />
           <path d="M40 56l-9 10 9 9 9-9-9-10Z" />
           <path d="M36 66h8" />
         </>
@@ -84,7 +95,10 @@ function CategoryIcon({ type }) {
           <circle cx="25" cy="45" r="13" />
           <circle cx="55" cy="45" r="13" />
           <path d="M38 43c1-3 3-3 4 0M12 42l-4-9M68 42l4-9" />
-          <path d="M31 17h18M35 12h10M40 12v10" opacity=".5" />
+          <path
+            d="M31 17h18M35 12h10M40 12v10"
+            opacity=".5"
+          />
           <path d="M60 13v10M55 18h10" />
         </>
       )}
@@ -92,7 +106,7 @@ function CategoryIcon({ type }) {
   );
 }
 
-export default function CategoryGrid({ onSelectCategory }) {
+export default function CategoryGrid() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -121,7 +135,9 @@ export default function CategoryGrid({ onSelectCategory }) {
         const data = await response.json();
 
         // پشتیبانی از پاسخ ساده و پاسخ صفحه‌بندی‌شده
-        const allCategories = Array.isArray(data) ? data : data.results;
+        const allCategories = Array.isArray(data)
+          ? data
+          : data.results;
 
         if (!Array.isArray(allCategories)) {
           throw new Error("پاسخ دسته‌بندی‌ها معتبر نیست.");
@@ -131,9 +147,13 @@ export default function CategoryGrid({ onSelectCategory }) {
           setCategories(allCategories);
         }
       } catch (err) {
-        if (cancelled || err.name === "AbortError") return;
+        if (cancelled || err.name === "AbortError") {
+          return;
+        }
 
-        setError("دسته‌بندی‌ها دریافت نشدند. دوباره تلاش کنید.");
+        setError(
+          "دسته‌بندی‌ها دریافت نشدند. دوباره تلاش کنید."
+        );
       } finally {
         if (!cancelled) {
           setLoading(false);
@@ -152,7 +172,8 @@ export default function CategoryGrid({ onSelectCategory }) {
   const cards = categoryCards.map((card) => {
     const category = categories.find((item) =>
       card.names.some(
-        (name) => normalizeName(name) === normalizeName(item.name)
+        (name) =>
+          normalizeName(name) === normalizeName(item.name)
       )
     );
 
@@ -161,13 +182,6 @@ export default function CategoryGrid({ onSelectCategory }) {
       category,
     };
   });
-
-  function handleClick(event, category) {
-    if (typeof onSelectCategory === "function") {
-      event.preventDefault();
-      onSelectCategory(category);
-    }
-  }
 
   return (
     <section
@@ -180,7 +194,9 @@ export default function CategoryGrid({ onSelectCategory }) {
           انتخاب از دنیای جزئیات
         </span>
 
-        <h2 id="category-grid-title">دسته‌بندی محصولات</h2>
+        <h2 id="category-grid-title">
+          دسته‌بندی محصولات
+        </h2>
 
         <p>از کجا شروع می‌کنید؟</p>
       </header>
@@ -199,12 +215,18 @@ export default function CategoryGrid({ onSelectCategory }) {
       ) : (
         <>
           {loading && (
-            <p className="category-grid__status" role="status">
+            <p
+              className="category-grid__status"
+              role="status"
+            >
               در حال دریافت دسته‌بندی‌ها…
             </p>
           )}
 
-          <ul className="category-grid__list" aria-busy={loading}>
+          <ul
+            className="category-grid__list"
+            aria-busy={loading}
+          >
             {cards.map((card) => {
               const content = (
                 <>
@@ -220,7 +242,10 @@ export default function CategoryGrid({ onSelectCategory }) {
                     {card.subtitle}
                   </span>
 
-                  <span className="category-grid__arrow" aria-hidden="true">
+                  <span
+                    className="category-grid__arrow"
+                    aria-hidden="true"
+                  >
                     ←
                   </span>
                 </>
@@ -228,16 +253,15 @@ export default function CategoryGrid({ onSelectCategory }) {
 
               return (
                 <li key={card.key}>
-                  {card.category ? (
-                    <a
+                  {card.category?.slug ? (
+                    <Link
                       className="category-grid__card"
-                      href="#products"
-                      onClick={(event) =>
-                        handleClick(event, card.category)
-                      }
+                      to={`/categories/${encodeURIComponent(
+                        card.category.slug
+                      )}`}
                     >
                       {content}
-                    </a>
+                    </Link>
                   ) : (
                     <div
                       className="category-grid__card category-grid__card--disabled"
@@ -247,7 +271,9 @@ export default function CategoryGrid({ onSelectCategory }) {
 
                       {!loading && (
                         <small className="category-grid__missing">
-                          دسته‌بندی در سایت ثبت نشده است
+                          {card.category
+                            ? "اسلاگ دسته‌بندی ثبت نشده است"
+                            : "دسته‌بندی در سایت ثبت نشده است"}
                         </small>
                       )}
                     </div>

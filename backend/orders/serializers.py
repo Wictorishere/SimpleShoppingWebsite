@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import serializers
 
 from .models import Order, OrderItem
@@ -5,7 +6,10 @@ from .services import create_order
 
 
 class OrderItemInputSerializer(serializers.Serializer):
-    product_id = serializers.IntegerField(min_value=1)
+    product_id = serializers.IntegerField(
+        min_value=1,
+    )
+
     quantity = serializers.IntegerField(
         min_value=1,
         max_value=10000,
@@ -13,7 +17,9 @@ class OrderItemInputSerializer(serializers.Serializer):
 
 
 class OrderCreateSerializer(serializers.Serializer):
-    address_id = serializers.IntegerField(min_value=1)
+    address_id = serializers.IntegerField(
+        min_value=1,
+    )
 
     items = OrderItemInputSerializer(
         many=True,
@@ -28,15 +34,40 @@ class OrderCreateSerializer(serializers.Serializer):
         default="",
     )
 
+    # فقط نتیجهٔ شبیه‌سازی؛ هیچ پرداخت واقعی انجام نمی‌شود.
+    simulated_payment_result = serializers.ChoiceField(
+        choices=[
+            ("success", "پرداخت موفق آزمایشی"),
+            ("failed", "پرداخت ناموفق آزمایشی"),
+        ],
+        required=False,
+    )
+
     def validate_items(self, items):
-        product_ids = [item["product_id"] for item in items]
+        product_ids = [
+            item["product_id"]
+            for item in items
+        ]
 
         if len(product_ids) != len(set(product_ids)):
             raise serializers.ValidationError(
-                "هر محصول را فقط یک بار ارسال کنید و تعداد را مشخص کنید.",
+                "هر محصول را فقط یک بار ارسال کنید "
+                "و تعداد را مشخص کنید."
             )
 
         return items
+
+    def validate_simulated_payment_result(self, value):
+        if not getattr(
+            settings,
+            "ENABLE_SIMULATED_PAYMENTS",
+            False,
+        ):
+            raise serializers.ValidationError(
+                "پرداخت آزمایشی غیرفعال است."
+            )
+
+        return value
 
     def create(self, validated_data):
         return create_order(
@@ -54,6 +85,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
+
         fields = [
             "id",
             "product",
@@ -62,6 +94,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
             "quantity",
             "subtotal",
         ]
+
         read_only_fields = fields
 
 
@@ -73,6 +106,7 @@ class OrderListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
+
         fields = [
             "id",
             "status",
@@ -80,6 +114,7 @@ class OrderListSerializer(serializers.ModelSerializer):
             "total_price",
             "created_at",
         ]
+
         read_only_fields = fields
 
 
@@ -88,6 +123,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         source="get_status_display",
         read_only=True,
     )
+
     items = OrderItemSerializer(
         many=True,
         read_only=True,
@@ -95,6 +131,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
+
         fields = [
             "id",
             "status",
@@ -111,4 +148,5 @@ class OrderDetailSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+
         read_only_fields = fields

@@ -1,0 +1,165 @@
+.product-grid,
+.product-grid *,
+.product-grid-state,
+.product-grid-state * {
+  box-sizing: border-box;
+}
+
+/* =========================
+   Product grid
+========================= */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
+
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.product-grid__item {
+  min-width: 0;
+}
+
+/* =========================
+   Loading / Error / Empty
+========================= */
+
+.product-grid-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  width: 100%;
+  min-height: 320px;
+  padding: 40px 20px;
+
+  color: var(--text-primary, #292929);
+  background: var(--surface, #ffffff);
+
+  border: 1px solid var(--border-color, #eeeeee);
+  border-radius: 16px;
+
+  text-align: center;
+}
+
+.product-grid-state h2 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.product-grid-state p {
+  max-width: 480px;
+  margin: 0;
+
+  color: var(--text-secondary, #777777);
+
+  font-size: 14px;
+  line-height: 2;
+
+  overflow-wrap: anywhere;
+}
+
+.product-grid-state button {
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 10px 20px;
+
+  color: #ffffff;
+  background: var(--accent, #e94149);
+
+  border: 0;
+  border-radius: 10px;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.product-grid-state button:focus-visible {
+  outline: 3px solid var(--accent, #e94149);
+  outline-offset: 4px;
+}
+
+/* =========================
+   Loading indicator
+========================= */
+
+.product-grid-state__spinner {
+  width: 32px;
+  height: 32px;
+
+  border: 3px solid var(--border-color, #eeeeee);
+  border-top-color: var(--accent, #e94149);
+  border-radius: 50%;
+
+  animation: product-grid-spin 800ms linear infinite;
+}
+
+@keyframes product-grid-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   Responsive grid
+========================= */
+
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    gap: 10px;
+  }
+
+  .product-grid-state {
+    min-height: 260px;
+    padding: 32px 16px;
+  }
+
+  .product-grid-state h2 {
+    font-size: 16px;
+  }
+
+  .product-grid-state p {
+    font-size: 13px;
+  }
+}
+
+/* صفحه‌های بسیار باریک */
+@media (max-width: 359px) {
+  .product-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-grid-state__spinner {
+    animation: none;
+  }
+}
